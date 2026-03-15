@@ -26,28 +26,6 @@ function buscarPorFecha(fecha){
         .flat();
 }
 
-// function renderResultados(registros){
-//     const container = document.getElementById("listaRegistrosCargados");
-//     container.innerHTML = "";
-//     if(registros.length === 0){
-//         container.innerHTML = "<li>No se encontraron registros</li>";
-//         return;
-//     }
-//     registros.forEach(registro => {
-//         const li = document.createElement("li");
-//         li.innerHTML = `
-//             <strong>${registro.tipoDeRegistro}</strong> |
-//             ${registro.fecha} |
-//             $ ${registro.monto} |
-//             ${registro.detalle}
-//             <button data-id="${registro.id}" data-storage="${registro.origen}">
-//                 Editar
-//             </button>
-//         `;
-//         container.appendChild(li);
-//     });
-// }
-
 function renderResultados(registros){
     const container = document.getElementById("listaRegistrosCargados");
     container.innerHTML = "";
@@ -85,22 +63,6 @@ document.getElementById("buscarPorFecha").addEventListener("submit", function(ev
     const resultados = buscarPorFecha(fecha);
     renderResultados(resultados);
 });
-
-// document.getElementById("listaRegistrosCargados").addEventListener("click", function(event){
-//     if(event.target.tagName !== "BUTTON") return;
-//     const id = event.target.dataset.id;
-//     const storage = event.target.dataset.storage;
-//     const datos = obtenerDatos(storage);
-//     const registros = Object.values(datos);
-//     const registro = registros.find(r => r.id == id);
-//     if(!registro) return;
-//     registroEditando = { id, storage };
-//     document.getElementById("nuevoMonto").value = registro.monto;
-//     document.getElementById("infoRegistro").textContent =
-//         `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
-//     document.getElementById("formEditarRegistro").style.display = "block";
-// });
-
 
 document.getElementById("listaRegistrosCargados").addEventListener("click", function(event){
     if(event.target.tagName !== "BUTTON") return;
