@@ -1,0 +1,82 @@
+[
+    {
+        "id":1,
+        "nombre": "Compra Supermercado",
+        "tipo": "Variable"
+    },
+    {
+        "id":2,
+        "nombre": "Luz",
+        "tipo": "Fijo"
+    },
+    {
+        "id":3,
+        "nombre": "ABL",
+        "tipo": "Fijo"
+    },
+    {
+        "id":4,
+        "nombre": "Gas",
+        "tipo": "Fijo"
+    },
+    {
+        "id":5,
+        "nombre": "Pago Tarjeta VISA",
+        "tipo": "Variable"
+    },
+    {
+        "id":6,
+        "nombre": "Pago Tarjeta MC",
+        "tipo": "Variable"
+    },
+    {
+        "id":7,
+        "nombre": "Otros Gastos",
+        "tipo": "Variable"
+    },
+    {
+        "id":8,
+        "nombre": "Alquiler",
+        "tipo": "Fijo"
+    },
+    {
+        "id":9,
+        "nombre": "Viaticos",
+        "tipo": "Variable"
+    },
+    {
+        "id":10,
+        "nombre": "Cobro Haberes",
+        "tipo": "Fijo"
+    },
+    {
+        "id":11,
+        "nombre": "Ingreso Adicional",
+        "tipo": "Variable"
+    },
+    {
+        "id":12,
+        "nombre": "Egreso Adicional",
+        "tipo": "Variable"
+    },
+    {
+        "id":13,
+        "nombre": "Pago de Impuestos",
+        "tipo": "Fijo"
+    },
+    {
+        "id":14,
+        "nombre": "Agua",
+        "tipo": "Fijo"
+    },
+    {
+        "id":15,
+        "nombre": "Expensas",
+        "tipo": "Fijo"
+    },
+    {
+        "id":16,
+        "nombre": "Prestamos",
+        "tipo": "Fijo"
+    }
+]

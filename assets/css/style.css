@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=BBH+Sans+Bartle&display=swap');
+@import 'sweetalert2/src/sweetalert2.scss';
+
+
+body {
+    background-color: rgb(197, 226, 207);
+    justify-content: space-between;
+}
+
+body h1 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body h2 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #a2daa4;
+    color: rgb(34, 29, 29);
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+h3 {
+    size: 5px;
+}
+
+.bloque-inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px; 
+}
+
+#imagen-principal {
+    display: block;
+    margin: 0 auto;
+    max-width: 50%;
+}
+
+
+body div .form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;    
+    padding: 10px 30px;
+
+}
+
+div button .form-container{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+
+}
+
+
+section div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+}
+
+.day {
+    border: 1px solid #aa0e88;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #29fa45;
+}
+
+body section div{
+    flex-direction: row;
+    justify-content: space-between;   
+    padding: 50px 30px; 
+}
+
+.form-container button {
+    color: #030303;
+    font-weight: bolder;
+    background: linear-gradient(180deg,rgb(149, 243, 112) 7%, rgba(247, 247, 247, 1) 50%, rgb(36, 219, 167) 95%);
+    border-color: #91dfba; 
+}
+/* Me lo traje para cambiar el formato  */
+.form-control{ 
+    width: auto;
+}
+
+.buttonDeInicio{
+    padding: 10px;
+    color: #030303;
+    font-weight: bolder;
+    background: linear-gradient(180deg,rgb(141, 180, 238) 7%, rgb(180, 238, 193) 50%, rgb(140, 236, 209) 95%);
+    border-color: #121815;
+
+}
+
+.buttonActualizar{
+    padding: 10px;
+    color: #030303;
+    font-weight: bolder;
+    background: linear-gradient(180deg,rgb(141, 180, 238) 7%, rgb(180, 238, 193) 50%, rgb(140, 236, 209) 95%);
+    border-color: #121815;
+
+}
+
+.generarResultadosIngresos{
+    color: #030303;
+    font-weight: bolder;
+    background: linear-gradient(180deg,rgb(98, 240, 199) 7%, rgb(180, 238, 216) 50%, rgb(29, 191, 255) 95%);
+    border-color: #121815;
+    display: block;
+    margin: auto;
+}
+
+.modificarRegistros{
+    color: #030303;
+    font-weight: bolder;
+    background: linear-gradient(180deg,rgb(29, 191, 255) 7%, rgb(180, 238, 216) 50%, rgb(98, 240, 199) 95%);
+    border-color: #121815;
+    display: block;
+    margin: auto;
+}
+
+.button:hover{
+    cursor: pointer;
+    color: rgb(17, 119, 56);
+}
+
+.button:active{
+    --bs-btn-active-color: #175035;
+}
+
+#listaRegistros {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.item-registro {
+    background-color: #f4f4f4;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+.item-registro strong {
+    color: #2c3e50;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="../assets/js/main.js"></script>
+    <script defer src="../assets/js/resultado.js"></script>
+    <script defer src="../assets/js/actualizarSaldos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>SegundaEntregaNadiaBrizuela</title>
+</head>
+<body>
+    <header class="bloque-inicio">
+        <div>
+            <img id="imagen-principal" src="../assets/img/ControlDeIngresosyEgresos.webp" alt="logo.webp">
+            <h1>Control de Ingresos y Egresos</h1>
+            <h2>Reporte de Ingresos y Egresos</h2>
+            <section>
+                <a class="btn buttonDeInicio" aria-current="page" href="../index.html">Inicio</a>
+            </section>
+        </div>
+    </header>
+    <div>
+        <div class="form-container">
+            <h3>Total Ingresos</h3>
+            <p>Resultado: $ <output id="resultadoIngreso">0</output></p>
+        </div>
+    </div>
+    <div>
+        <div class="form-container">
+            <h3>Total Egresos</h3>
+            <p>Resultado: $ <output id="resultadoEgreso">0</output></p>
+        </div>
+    </div>
+    <div>
+        <div class="form-container">
+            <h3>Total Ahorrado</h3>
+            <p>Resultado: $ <output id="resultadoTotal">0</output></p>
+        </div>
+    </div>
+    <div>
+        <div class="form-container">
+            <button id="generarResultadosTotalAhorrado">Obtener Resultados</button>
+        </div>
+    </div>
+    <div>
+        <div class="form-container">
+            <button id="verListadoTotalIngresosEgresos">Listar</button>
+            <ul id="listaRegistros"></ul>
+        </div>
+    </div>
+
+</body>
+</html>

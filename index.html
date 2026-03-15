@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="./assets/js/main.js"></script>
+    <script defer src="./assets/js/resultado.js"></script>
+    <script defer src="./assets/js/actualizarSaldos.js"></script>
+        <!--Boostrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>SegundaEntregaNadiaBrizuela</title>
+</head>
+<body>
+    <header class="bloque-inicio">
+        <div>
+            <img id="imagen-principal" src="./assets/img/ControlDeIngresosyEgresos.webp" alt="logo.webp">
+            <h1>Control de Ingresos y Egresos</h1>
+            <h2>Bienvenido, a tu Reporte de Ahorros!</h2>
+        </div>
+    </header>
+    <div>
+        <form id="formIngresos" class="form-container">
+            <h3>Ingreso Del Mes</h3>
+            <input type="date" id="ingresosDate">
+            <input type="number" id="ingresosMonto" step="0.01" placeholder="Monto">
+            <!-- utilizo la base de datos que arme con los tipos de gastos e ingresos -->
+            <select class="catalogo-detalle">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <div>
+        <form id="formEgresos" class="form-container">
+            <h3>Egreso Del Mes</h3>
+            <input type="date" id="egresosDate">
+            <input type="number" id="egresosMonto" step="0.01" placeholder="Monto">
+            <!-- utilizo la base de datos que arme con los tipos de gastos e ingresos -->
+            <select class="catalogo-detalle">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <div>
+        <form id="formIngresosExtra" class="form-container">     
+            <h3>Ingreso Extraordinario</h3>
+            <input type="date" id="ingresoExtraDate">
+            <input type="number" id="ingresoExtraMonto" step="0.01" placeholder="Monto">
+            <!-- utilizo la base de datos que arme con los tipos de gastos e ingresos -->
+            <select class="catalogo-detalle">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>   
+    </div>
+    <div>
+        <form id="formEgresosExtra" class="form-container">    
+            <h3>Egreso Extraordinario</h3>
+            <input type="date" id="egresoExtraDate">
+            <input type="number" id="egresoExtraMonto" step="0.01" placeholder="Monto">
+            <!-- utilizo la base de datos que arme con los tipos de gastos e ingresos -->
+            <select class="catalogo-detalle">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <section>
+        <div>
+            <a href="#" class="btn modificarRegistros botonModificar">Modificar Registros</a>
+            <a href="#" class="btn generarResultadosIngresos miBoton">Ver Saldos Generales</a>
+        </div>
+    </section>
+
+</body>
+</html>
