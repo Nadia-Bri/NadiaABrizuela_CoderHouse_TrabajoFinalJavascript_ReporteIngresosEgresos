@@ -26,11 +26,33 @@ function buscarPorFecha(fecha){
         .flat();
 }
 
+// function renderResultados(registros){
+//     const container = document.getElementById("listaRegistrosCargados");
+//     container.innerHTML = "";
+//     if(registros.length === 0){
+//         container.innerHTML = "<li>No se encontraron registros</li>";
+//         return;
+//     }
+//     registros.forEach(registro => {
+//         const li = document.createElement("li");
+//         li.innerHTML = `
+//             <strong>${registro.tipoDeRegistro}</strong> |
+//             ${registro.fecha} |
+//             $ ${registro.monto} |
+//             ${registro.detalle}
+//             <button data-id="${registro.id}" data-storage="${registro.origen}">
+//                 Editar
+//             </button>
+//         `;
+//         container.appendChild(li);
+//     });
+// }
+
 function renderResultados(registros){
     const container = document.getElementById("listaRegistrosCargados");
     container.innerHTML = "";
     if(registros.length === 0){
-        container.innerHTML = "<li>No se encontraron registros</li>";
+        container.innerHTML = "<li>No se encontraron registros para esa fecha</li>";
         return;
     }
     registros.forEach(registro => {
@@ -40,8 +62,17 @@ function renderResultados(registros){
             ${registro.fecha} |
             $ ${registro.monto} |
             ${registro.detalle}
-            <button data-id="${registro.id}" data-storage="${registro.origen}">
+
+            <button class="editar"
+                data-id="${registro.id}"
+                data-storage="${registro.origen}">
                 Editar
+            </button>
+
+            <button class="eliminar"
+                data-id="${registro.id}"
+                data-storage="${registro.origen}">
+                Eliminar
             </button>
         `;
         container.appendChild(li);
@@ -55,19 +86,61 @@ document.getElementById("buscarPorFecha").addEventListener("submit", function(ev
     renderResultados(resultados);
 });
 
+// document.getElementById("listaRegistrosCargados").addEventListener("click", function(event){
+//     if(event.target.tagName !== "BUTTON") return;
+//     const id = event.target.dataset.id;
+//     const storage = event.target.dataset.storage;
+//     const datos = obtenerDatos(storage);
+//     const registros = Object.values(datos);
+//     const registro = registros.find(r => r.id == id);
+//     if(!registro) return;
+//     registroEditando = { id, storage };
+//     document.getElementById("nuevoMonto").value = registro.monto;
+//     document.getElementById("infoRegistro").textContent =
+//         `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
+//     document.getElementById("formEditarRegistro").style.display = "block";
+// });
+
+
 document.getElementById("listaRegistrosCargados").addEventListener("click", function(event){
     if(event.target.tagName !== "BUTTON") return;
     const id = event.target.dataset.id;
     const storage = event.target.dataset.storage;
-    const datos = obtenerDatos(storage);
-    const registros = Object.values(datos);
-    const registro = registros.find(r => r.id == id);
-    if(!registro) return;
-    registroEditando = { id, storage };
-    document.getElementById("nuevoMonto").value = registro.monto;
-    document.getElementById("infoRegistro").textContent =
-        `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
-    document.getElementById("formEditarRegistro").style.display = "block";
+    // Acción del boton Eliminar
+    if(event.target.classList.contains("eliminar")){
+        Swal.fire({
+            title: "¿Desea Eliminar el Registro?",
+            text: "Esta acción no se puede deshacer",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar"
+        }).then((result) => {
+            if(result.isConfirmed){
+                const datos = obtenerDatos(storage);
+                delete datos[id];
+                guardarDatos(storage, datos);
+                Swal.fire("Eliminado", "El registro fue eliminado con éxito", "success");
+                // renderizo nuevamente la lista
+                const fecha = document.getElementById("ingresosDate").value;
+                const resultados = buscarPorFecha(fecha);
+                renderResultados(resultados);
+            }
+        });
+        return;
+    }
+    // Acción para el boton Editar
+    if(event.target.classList.contains("editar")){
+        const datos = obtenerDatos(storage);
+        const registros = Object.values(datos);
+        const registro = registros.find(r => r.id == id);
+        if(!registro) return;
+        registroEditando = { id, storage };
+        document.getElementById("nuevoMonto").value = registro.monto;
+        document.getElementById("infoRegistro").textContent =
+            `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
+        document.getElementById("formEditarRegistro").style.display = "block";
+    }
+
 });
 
 document.getElementById("formEditarRegistro").addEventListener("submit", function(event){
