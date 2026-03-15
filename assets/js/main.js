@@ -1,5 +1,5 @@
 
-const URL= "../assets/db/data.json"
+const URL= "./assets/db/data.json"
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch(URL)
