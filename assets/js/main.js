@@ -1,22 +1,22 @@
 
 const URL= "./assets/db/data.json"
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            const selects = document.querySelectorAll(".catalogo-detalle");
-            selects.forEach(select => {
-                data.forEach(item => {
-                    const option = document.createElement("option");
-                    option.value = item.nombre;
-                    option.textContent = item.nombre;
-                    select.appendChild(option);
-                });
+
+fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+        const selects = document.querySelectorAll(".catalogo-detalle");
+        selects.forEach(select => {
+            data.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.nombre;
+                option.textContent = item.nombre;
+                select.appendChild(option);
             });
-        })
-        .catch(error => console.error("Error cargando bd.json:", error));
-});
+        });
+    })
+    .catch(error => console.error("Error cargando bd.json:", error));
+
 
 class Ingreso {
     static id = 0
