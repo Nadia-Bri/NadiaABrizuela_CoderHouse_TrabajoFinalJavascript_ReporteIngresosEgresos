@@ -41,15 +41,11 @@ function renderResultados(registros){
             $ ${registro.monto} |
             ${registro.detalle}
 
-            <button class="editar"
-                data-id="${registro.id}"
-                data-storage="${registro.origen}">
+            <button class="editar" onclick="editarMovimiento('${registro.id}', '${registro.origen}')">
                 Editar
             </button>
 
-            <button class="eliminar"
-                data-id="${registro.id}"
-                data-storage="${registro.origen}">
+            <button class="eliminar" onclick="eliminarMovimiento('${registro.id}', '${registro.origen}')">
                 Eliminar
             </button>
         `;
@@ -64,46 +60,39 @@ document.getElementById("buscarPorFecha").addEventListener("submit", function(ev
     renderResultados(resultados);
 });
 
-document.getElementById("listaRegistrosCargados").addEventListener("click", function(event){
-    if(event.target.tagName !== "BUTTON") return;
-    const id = event.target.dataset.id;
-    const storage = event.target.dataset.storage;
-    // Acción del boton Eliminar
-    if(event.target.classList.contains("eliminar")){
-        Swal.fire({
-            title: "¿Desea Eliminar el Registro?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sí, eliminar"
-        }).then((result) => {
-            if(result.isConfirmed){
-                const datos = obtenerDatos(storage);
-                delete datos[id];
-                guardarDatos(storage, datos);
-                Swal.fire("Eliminado", "El registro fue eliminado con éxito", "success");
-                // renderizo nuevamente la lista
-                const fecha = document.getElementById("ingresosDate").value;
-                const resultados = buscarPorFecha(fecha);
-                renderResultados(resultados);
-            }
-        });
-        return;
-    }
-    // Acción para el boton Editar
-    if(event.target.classList.contains("editar")){
-        const datos = obtenerDatos(storage);
-        const registros = Object.values(datos);
-        const registro = registros.find(r => r.id == id);
-        if(!registro) return;
-        registroEditando = { id, storage };
-        document.getElementById("nuevoMonto").value = registro.monto;
-        document.getElementById("infoRegistro").textContent =
-            `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
-        document.getElementById("formEditarRegistro").style.display = "block";
-    }
+function editarMovimiento(id, storage){
+    const datos = obtenerDatos(storage);
+    const registros = Object.values(datos);
+    const registro = registros.find(r => r.id == id);
+    if(!registro) return;
+    registroEditando = { id, storage };
+    document.getElementById("nuevoMonto").value = registro.monto;
+    document.getElementById("infoRegistro").textContent =
+        `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
+    document.getElementById("formEditarRegistro").style.display = "block";
+}
 
-});
+function eliminarMovimiento(id, storage){
+    Swal.fire({
+        title: "¿Desea Eliminar el Registro?",
+        text: "Esta acción no se puede deshacer",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar"
+    }).then((result) => {
+        if(result.isConfirmed){
+            const datos = obtenerDatos(storage);
+            delete datos[id];
+            guardarDatos(storage, datos);
+            Swal.fire("Eliminado", "El registro fue eliminado con éxito", "success");
+            // renderizo nuevamente la lista
+            const fecha = document.getElementById("ingresosDate").value;
+            const resultados = buscarPorFecha(fecha);
+            renderResultados(resultados);
+        }
+    });
+    return;
+}
 
 document.getElementById("formEditarRegistro").addEventListener("submit", function(event){
     event.preventDefault(); 

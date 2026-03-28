@@ -285,7 +285,7 @@ for(const item of botonModificar){
 }
 
 // prueba base
-function obtenerProductos() {
+function obtenerRegistros() {
     fetch(URL)
         .then(respose => respose.json())
         .then(data => {
@@ -305,4 +305,4 @@ function renderProductos(listaGastos) {
     })
 }
 
-obtenerProductos()
+obtenerRegistros()
