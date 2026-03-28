@@ -1,29 +1,16 @@
-const storages = [
-    "registrosIngreso",
-    "registroIngExtra",
-    "registroEgreso",
-    "registroEgreExtra"
-];
-
 let registroEditando = null;
 
-function obtenerDatos(storage){
-    return JSON.parse(localStorage.getItem(storage)) || {};
+function obtenerDatos(){
+    return JSON.parse(localStorage.getItem("registrosMovimiento")) || {};
 }
 
-function guardarDatos(storage, datos){
-    localStorage.setItem(storage, JSON.stringify(datos));
+function guardarDatos(datos){
+    localStorage.setItem("registrosMovimiento", JSON.stringify(datos));
 }
 
 function buscarPorFecha(fecha){
-    return storages
-        .map(storage => {
-            const datos = obtenerDatos(storage);
-            return Object.values(datos)
-                .filter(reg => reg.fecha === fecha)
-                .map(reg => ({ ...reg, origen: storage }));
-        })
-        .flat();
+    return Object.values(obtenerDatos())
+                .filter(reg => reg.fecha === fecha);
 }
 
 function renderResultados(registros){
@@ -41,11 +28,11 @@ function renderResultados(registros){
             $ ${registro.monto} |
             ${registro.detalle}
 
-            <button class="editar" onclick="editarMovimiento('${registro.id}', '${registro.origen}')">
+            <button class="editar" onclick="editarMovimiento('${registro.id}')">
                 Editar
             </button>
 
-            <button class="eliminar" onclick="eliminarMovimiento('${registro.id}', '${registro.origen}')">
+            <button class="eliminar" onclick="eliminarMovimiento('${registro.id}')">
                 Eliminar
             </button>
         `;
@@ -56,23 +43,22 @@ function renderResultados(registros){
 document.getElementById("buscarPorFecha").addEventListener("submit", function(event){
     event.preventDefault();
     const fecha = document.getElementById("ingresosDate").value;
-    const resultados = buscarPorFecha(fecha);
-    renderResultados(resultados);
+    renderResultados(buscarPorFecha(fecha));
 });
 
-function editarMovimiento(id, storage){
-    const datos = obtenerDatos(storage);
+function editarMovimiento(id){
+    const datos = obtenerDatos();
     const registros = Object.values(datos);
     const registro = registros.find(r => r.id == id);
     if(!registro) return;
-    registroEditando = { id, storage };
+    registroEditando = { id };
     document.getElementById("nuevoMonto").value = registro.monto;
     document.getElementById("infoRegistro").textContent =
         `${registro.tipoDeRegistro} | ${registro.fecha} | ${registro.detalle}`;
     document.getElementById("formEditarRegistro").style.display = "block";
 }
 
-function eliminarMovimiento(id, storage){
+function eliminarMovimiento(id){
     Swal.fire({
         title: "¿Desea Eliminar el Registro?",
         text: "Esta acción no se puede deshacer",
@@ -81,9 +67,9 @@ function eliminarMovimiento(id, storage){
         confirmButtonText: "Sí, eliminar"
     }).then((result) => {
         if(result.isConfirmed){
-            const datos = obtenerDatos(storage);
+            const datos = obtenerDatos();
             delete datos[id];
-            guardarDatos(storage, datos);
+            guardarDatos(datos);
             Swal.fire("Eliminado", "El registro fue eliminado con éxito", "success");
             // renderizo nuevamente la lista
             const fecha = document.getElementById("ingresosDate").value;
@@ -105,13 +91,22 @@ document.getElementById("formEditarRegistro").addEventListener("submit", functio
         });
         return;
     }
-    const datos = obtenerDatos(registroEditando.storage);
+    if (nuevoMonto < 0) {
+        Swal.fire({
+            title: "Error",
+            text: "Debe ingresar un valor positivo",
+            icon: "error"
+        });
+        return;
+    }
+    const datos = obtenerDatos();
     const registros = Object.values(datos);
     const registro = registros.find(r => r.id == registroEditando.id);
     if(registro){
         registro.monto = nuevoMonto;
     }
-    guardarDatos(registroEditando.storage, datos);
+    guardarDatos(datos);
+
     Swal.fire({
         title: "¡Actualizado!",
         html: `Su monto fue actualizado satisfactoriamente.<br>
@@ -119,9 +114,37 @@ document.getElementById("formEditarRegistro").addEventListener("submit", functio
         `,
         icon: "success"
     });
+
     document.getElementById("formEditarRegistro").style.display = "none";
     this.reset()
 });
+
+function verListadoTotalIngresosEgresos(){
+    const container = document.getElementById("listaRegistros");
+    container.innerHTML = "";
+    const datos = obtenerDatos();
+    renderIngresosEgresos(datos);
+}
+
+function renderIngresosEgresos(registros) {
+
+    const container = document.getElementById("listaRegistros");
+    // Convierto los objetos en array
+    const arrayRegistros = Object.values(registros);
+
+    arrayRegistros.forEach(registro => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <strong>${registro.tipoDeRegistro}</strong> |
+            ${registro.fecha} |
+            $ ${registro.monto} |
+            ${registro.detalle}
+        `;
+        li.classList.add("item-registro");
+        container.appendChild(li);
+    });
+}
+
 
 //llamo a la función que se encuentra armada en resultado.js y volver a listar los ingresos y egresos actualizados
 document.getElementById('verListadoTotalIngresosEgresos').addEventListener('click', () => {
